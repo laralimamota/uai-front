@@ -42,4 +42,44 @@ export const transactionsApi = {
   remove: (id) => api.delete(`/transacoes/${id}`),
 };
 
+export const recurrencesApi = {
+  list: (params = {}, config = {}) =>
+    api.get("/recorrencias", {
+      ...config,
+      params: {
+        ...(config.params ?? {}),
+        ...params,
+      },
+    }),
+  getById: (id) => api.get(`/recorrencias/${id}`),
+  create: (payload) => api.post("/recorrencias", payload),
+  update: (id, payload) => api.put(`/recorrencias/${id}`, payload),
+  remove: (id) => api.delete(`/recorrencias/${id}`),
+  generateEntries: (id, payload, config) => api.post(`/recorrencias/${id}/gerar`, payload, config),
+};
+
+export const installmentsApi = {
+  list: (params = {}, config = {}) =>
+    api.get("/parcelamentos", {
+      ...config,
+      params: {
+        ...(config.params ?? {}),
+        ...params,
+      },
+    }),
+  getById: (id, config) => api.get(`/parcelamentos/${id}`, config),
+  create: (payload, config) => api.post("/parcelamentos", payload, config),
+  update: (id, payload, config) => api.put(`/parcelamentos/${id}`, payload, config),
+  remove: (id, config) => api.delete(`/parcelamentos/${id}`, config),
+  registerPayment: (id, payload, config) => api.post(`/parcelamentos/${id}/registrar-pagamento`, payload, config),
+  listTransactions: (id, params = {}, config = {}) =>
+    api.get(`/parcelamentos/${id}/transacoes`, {
+      ...config,
+      params: {
+        ...(config.params ?? {}),
+        ...params,
+      },
+    }),
+};
+
 export default api;
